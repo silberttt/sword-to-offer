@@ -1,0 +1,32 @@
+题目：请实现一个函数，将一个字符串中的每个空格替换成“%20”。
+     例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+     
+     
+我的解法1：从后向前遍历， string转list：list()， list转string：''.join()  
+代码：
+# -*- coding:utf-8 -*-
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        # write code here
+        i=len(s)-1
+        a=list(s)
+        b='%20'
+        while(i>=0):
+            if a[i]==' ':
+                a.pop(i)
+                a.insert(i,b)
+            i-=1
+        b=''.join(a)
+        return b
+        
+我的解法2：使用字符串操作a.replace(old,new,count)
+注意：必须赋值
+代码：
+# -*- coding:utf-8 -*-
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        # write code here
+        s=s.replace(' ',"%20")
+        return s
