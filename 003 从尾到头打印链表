@@ -1,0 +1,14 @@
+题目：输入一个链表，按链表从尾到头的顺序返回一个ArrayList。
+示例：输入{67,0,24,58}   返回值[58,24,0,67]
+
+
+最优解：递归
+注意：return 可以返回多个值，用+连接
+代码：
+class Solution:
+    # 返回从尾部到头部的列表值序列，例如[1,2,3]
+    def printListFromTailToHead(self, listNode):
+        # write code here
+        if listNode is None: 
+            return []
+        return self.printListFromTailToHead(listNode.next) + [listNode.val]
