@@ -1,0 +1,17 @@
+题目描述
+给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+已知保证base和exponent不同时为0
+
+分析：
+注意分析当指数为复数的情况
+
+# -*- coding:utf-8 -*-
+class Solution:
+    def Power(self, base, exponent):
+        # write code here
+        res=1
+        for i in range(abs(exponent)):
+            res*=base
+        if exponent<0:
+            res=1/res
+        return res
