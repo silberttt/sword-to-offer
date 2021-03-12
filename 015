@@ -1,0 +1,50 @@
+
+
+我的：没有优化过程 开头过于繁琐
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    # 返回ListNode
+    def ReverseList(self, pHead):
+        # write code here
+        if not pHead or pHead.next==None:
+            return pHead
+        p=pHead
+        q=pHead.next
+        pHead.next=None
+        mid=p
+        while q:
+            mid=q
+            q=q.next
+            mid.next=p
+            p=mid
+        #q.next=p
+        return p
+        
+        
+更优解(但是在Python中会报错：返回非零 请检查是否存在语法错误或者数组越界非法访问等情况
+Traceback (most recent call last):
+File "a.py", line 2, in <module>
+from solution import *
+File "/tmp/solution.py", line 14
+pre = None
+^
+IndentationError: unindent does not match any outer indentation level)：
+
+
+ if pHead==None or pHead.next==None:
+            return pHead
+        pre = None
+        cur = pHead
+        while cur!=None:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        return pre
+  
+  结论：记住逻辑就好
+  最终结论：Python事儿真多，真的不如C++好用
