@@ -1,0 +1,68 @@
+题目描述
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则返回true,否则返回false。假设输入的数组的任意两个数字都互不相同。（ps：我们约定空树不是二叉搜素树）
+示例1
+输入
+[4,8,6,12,16,14,10]
+返回值
+true
+
+分析：
+BST的后序序列的合法序列是，对于一个序列S，最后一个元素是x （也就是根），如果去掉最后一个元素的序列为T，
+那么T满足：T可以分成两段，前一段（左子树）小于x，后一段（右子树）大于x，且这两段（子树）都是合法的后序序列。
+完美的递归定义
+
+解法1： 另建函数
+# -*- coding:utf-8 -*-
+class Solution:
+    def VerifySquenceOfBST(self, sequence):
+        # write code here
+        if not sequence:
+            return False   
+        return self.helper(sequence)
+     
+    # 增加helper函数是因为对于递归来说sequence为空可以作为终止条件，而对于判断BST而言 sequence为空是False
+    def helper(self, sequence):
+        if not sequence:
+            return True
+        root = sequence[-1]
+        for i in range(len(sequence)):
+            if sequence[i] > root:
+                break      
+        for right in sequence[i:-1]:
+            if right < root:
+                return False            
+        return self.helper(sequence[:i]) and self.helper(sequence[i:-1])
+        
+        
+解法二：在本函数内        
+# -*- coding:utf-8 -*-
+class Solution:
+    def VerifySquenceOfBST(self, sequence):
+        # write code here
+        if len(sequence) == 0:
+            return False
+         
+        root = sequence[-1]
+         
+        # 在二叉搜索中左子树的结点小于跟结点
+        i = 0
+        for node in sequence[:-1]:
+            if node > root:
+                break
+            i += 1
+             
+        # 在二叉搜索中右子树的结点小于跟结点
+        for node in sequence[i:-1]:
+            if node < root:
+                return False
+             
+        # 判断左子树是不是二叉搜索树
+        left = True
+        if i > 1:
+            left = self.VerifySquenceOfBST(sequence[:i])
+         
+        right = True
+        if i < len(sequence) - 2 and left:
+            right = self.VerifySquenceOfBST(sequence[i+1:-1])
+         
+        return left and right  
