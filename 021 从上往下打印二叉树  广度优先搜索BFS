@@ -1,0 +1,31 @@
+
+
+实际就是广度优先搜索 BFS, 借助一个队列就可以实现
+使用两个队列一个存放节点，一个存放值。先将根节点加入到队列中，然后遍历队列中的元素，遍历过程中，访问该元素的左右节点，再将左右子节点加入到队列中来
+
+
+注意：
+广度优先搜索要用if这种单次判断，在这道题中用队列queue存储当前层的节点，当前层的第一个节点出队后，将此节点的左右节点放在队末
+深度预先搜索可以用递归
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    # 返回从上到下每个节点值列表，例：[1,2,3]
+    def PrintFromTopToBottom(self, root):
+        # write code here
+        if not root:
+            return []
+        queue=[root]
+        res=[]
+        while len(queue)>0:
+            node=queue.pop(0)
+            res.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return res
