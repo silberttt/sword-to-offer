@@ -11,7 +11,7 @@ BST的后序序列的合法序列是，对于一个序列S，最后一个元素�
 那么T满足：T可以分成两段，前一段（左子树）小于x，后一段（右子树）大于x，且这两段（子树）都是合法的后序序列。
 完美的递归定义
 
-解法1： 另建函数
+解法1： 递归
 # -*- coding:utf-8 -*-
 class Solution:
     def VerifySquenceOfBST(self, sequence):
@@ -34,35 +34,29 @@ class Solution:
         return self.helper(sequence[:i]) and self.helper(sequence[i:-1])
         
         
-解法二：在本函数内        
+解法二：非递归  
+非递归也是一个基于递归的思想：
+//左子树一定比右子树小，因此去掉根后，数字分为left，right两部分，right部分的
+//最后一个数字是右子树的根他也比左子树所有值大，因此我们可以每次只看有子树是否符合条件
+//即可，即使到达了左子树左子树也可以看出由左右子树组成的树还想右子树那样处理
+//对于左子树回到了原问题，对于右子树，左子树的所有值都比右子树的根小可以暂时把他看出右子树的左子树
+//只需看看右子树的右子树是否符合要求即可
+
 # -*- coding:utf-8 -*-
 class Solution:
     def VerifySquenceOfBST(self, sequence):
         # write code here
-        if len(sequence) == 0:
+        if not sequence:
             return False
-         
-        root = sequence[-1]
-         
-        # 在二叉搜索中左子树的结点小于跟结点
-        i = 0
-        for node in sequence[:-1]:
-            if node > root:
-                break
-            i += 1
-             
-        # 在二叉搜索中右子树的结点小于跟结点
-        for node in sequence[i:-1]:
-            if node < root:
+        l=len(sequence)-1
+        
+        while(l) :
+            i=0
+            while(sequence[i]<sequence[l]):
+                i+=1
+            while(sequence[i]>sequence[l]):
+                i+=1
+            if i<l:
                 return False
-             
-        # 判断左子树是不是二叉搜索树
-        left = True
-        if i > 1:
-            left = self.VerifySquenceOfBST(sequence[:i])
-         
-        right = True
-        if i < len(sequence) - 2 and left:
-            right = self.VerifySquenceOfBST(sequence[i+1:-1])
-         
-        return left and right  
+            l-=1
+        return True
