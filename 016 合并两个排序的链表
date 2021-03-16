@@ -8,6 +8,7 @@
 
 
 注意：单独给出一个空的头节点，可以节省计算空间和步骤，之后从小到大将节点连接到头结点上
+一般方法：
 # -*- coding:utf-8 -*-
 # class ListNode:
 #     def __init__(self, x):
@@ -34,3 +35,54 @@ class Solution:
             tmp.next = pHead1
         return pHead.next
         
+
+迭代
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1==null)return l2;
+        if(l2==null)return l1;
+        ListNode dummy=new ListNode(0);
+        ListNode cur=dummy;
+        while(l1!=null && l2!=null){
+            if(l1.val<l2.val){
+                cur.next=l1;
+                l1=l1.next;
+            }else{
+                cur.next=l2;
+                l2=l2.next;
+            }
+            cur=cur.next;
+        }
+        cur.next=l1==null?l2:l1;
+        return dummy.next;
+    }
+}
+
+
+递归
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1==null)return l2;
+        if(l2==null)return l1;
+        if(l1.val<l2.val){
+            l1.next=mergeTwoLists(l1.next,l2);
+            return l1;
+        }else{
+            l2.next=mergeTwoLists(l1,l2.next);
+            return l2;
+        }
+    }
+}
+
+
+最简单递归（多理解）：
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        # 递归
+        if l1 and l2:
+            if l1.val > l2.val:
+                l1, l2 = l2, l1  #保持l1是最小的
+            l1.next = self.mergeTwoLists(l1.next, l2)
+        return l1 or l2   #返回其中不为空的节点，即剩下哪个链表还有数就把剩下的链在一起的节点全部返回作为链表末尾
