@@ -31,7 +31,7 @@ class Solution:
         for right in sequence[i:-1]:
             if right < root:
                 return False            
-        return self.helper(sequence[:i]) and self.helper(sequence[i:-1])   #[:i]是从第0个开始到第i个之前！！不包含第i个！！
+        return self.helper(sequence[:i]) and self.helper(sequence[i:-1])   #[:i]是从第0个开始到第i个之前！！不包含第i个！
         
         
 解法二：非递归  
