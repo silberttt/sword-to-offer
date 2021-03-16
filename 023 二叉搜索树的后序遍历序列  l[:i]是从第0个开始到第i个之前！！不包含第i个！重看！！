@@ -25,13 +25,13 @@ class Solution:
         if not sequence:
             return True
         root = sequence[-1]
-        for i in range(len(sequence)):
+        for i in range(len(sequence)):   #这里一定不能len(seq)-1!
             if sequence[i] > root:
                 break      
         for right in sequence[i:-1]:
             if right < root:
                 return False            
-        return self.helper(sequence[:i]) and self.helper(sequence[i:-1])
+        return self.helper(sequence[:i]) and self.helper(sequence[i:-1])   #[:i]是从第0个开始到第i个之前！！不包含第i个！！
         
         
 解法二：非递归  
