@@ -21,3 +21,4 @@ class Solution:
         self.midTraversal(root.left)
         self.arr.append(root)
         self.midTraversal(root.right)
+ 
