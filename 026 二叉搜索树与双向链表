@@ -10,7 +10,8 @@ class Solution:
         if not pRootOfTree:return
         self.arr = []
         self.midTraversal(pRootOfTree)
-        for i,v in enumerate(self.arr[:-1]):  #枚举
+        for i,v in enumerate(self.arr[:-1]):  #必须用枚举，返回i：index(int) v:第i个元素
+                                              #必须[:-1]：否则报错list index out of range
             v.right = self.arr[i + 1]
             self.arr[i + 1].left = v
         return self.arr[0]
