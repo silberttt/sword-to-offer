@@ -44,3 +44,19 @@ int helper(vector<int>& memo, int n) {
                 helper(memo, n - 2);
     return memo[n];
 }
+
+#更简单带备忘录法
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n<0:
+            return 0
+        mem=[0,1]
+        for i in range(n-1):
+            mem.append(mem[-1]+mem[-2])
+        return mem[n]
+        
+
