@@ -1,0 +1,40 @@
+题目描述
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+示例1
+输入
+复制
+[1,2,3,2,2,2,5,4,2]
+返回值
+复制
+2
+
+灵活简易版： 
+个数超过总个数的一半，则证明有序后的数组的中间位必为该目标数字。
+class Solution {
+public:
+    int MoreThanHalfNum_Solution(vector<int> numbers) {
+        if(numbers.empty()) return 0;
+        sort(numbers.begin(),numbers.end());
+        int m=numbers[numbers.size()/2];
+        int count=0;
+        for(int i=0;i<numbers.size();i++){
+            if(numbers[i]==m) count++;
+        }
+        return count>numbers.size()/2 ? m :0;
+    }
+};
+
+
+标准解法：利用map映射构建哈希表
+class Solution {
+public:
+    int MoreThanHalfNum_Solution(vector<int> numbers) {
+        map<int,int> m;
+        int n=numbers.size();
+        for(int i=0;i<n;i++){
+            m[numbers[i]]++;
+            if(m[numbers[i]]>n/2) return numbers[i];
+        }
+        return 0;
+    }
+};
