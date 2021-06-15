@@ -1,0 +1,43 @@
+描述
+输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。要求时间复杂度为 O(n).
+示例1
+输入：
+[1,-2,3,10,-4,7,2,-5]
+
+返回值：
+18
+
+说明：
+输入的数组为{1,-2,3,10,—4,7,2,一5}，和最大的子数组为{3,10,一4,7,2}，因此输出为该子数组的和 18。 
+
+解1：设置一个结果变量，一个中间暂存变量
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> array) {
+        int ans=array[0];
+        int sum=array[0];
+        for(int i=1;i<array.size();i++){
+            if(sum<0) sum=array[i];//若sum<0则重新计算，因为当前计算的子序列的和是复数，只会减小下一个加入进来的数值
+            else sum+=array[i];
+            ans=max(sum,ans);
+        }
+        return ans;
+    }
+};
+
+
+解2：dp表
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> array) {
+        if(array.empty()) return 0;
+        vector<int> dp(array.size(),0);
+        dp[0]=array[0];
+        int res=array[0];
+        for(int i=1;i<array.size();i++){
+            dp[i]=max(array[i],array[i]+dp[i-1]);//基本比较步骤
+            res=max(res,dp[i]);//一直存的是最大值
+        }
+        return res;
+    }
+};
