@@ -35,7 +35,7 @@ public:
         dp[0]=array[0];
         int res=array[0];
         for(int i=1;i<array.size();i++){
-            dp[i]=max(array[i],array[i]+dp[i-1]);//基本比较步骤
+            dp[i]=max(array[i],array[i]+dp[i-1]);//基本比较步骤，是从当前数字重新开始，还是接着向下走
             res=max(res,dp[i]);//一直存的是最大值
         }
         return res;
